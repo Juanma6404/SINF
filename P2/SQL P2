@@ -1,0 +1,131 @@
+A nivel de tabla, la clave primaria se puede definir usando múltiples columnas. Es decir, una clave primaria compuesta por más de una columna se define a nivel de tabla. Esto se utiliza cuando necesitas garantizar la unicidad en una combinación de columnas y no solo en una sola.
+
+Cuando defines una clave primaria a nivel de columna, estás indicando que esa columna será la clave primaria de la tabla y, por lo tanto, no puede contener valores duplicados ni valores NULL.
+
+METO EN UN ARCHIVO programa_sql.sql los datos para crear la BD de peliculas directores titulos
+
+
+///////////////
+
+La ​clave foránea​ es una clave referenciada de una entidad con la de otra; para que una clavepueda aparecer en una entidad, debe existir obligatoriamente en otra
+
+El objetivo de este ejercicio es utilizar una clave
+foránea para asociar a cada película la informa-
+ción sobre su director (vamos a suponer que
+una película sólo puede tener un director).
+
+ESTAN LAS SENTENCIAS EN EL programa_sql2.sql
+
+////////
+Creo una nueva relación para integrarlo en la base de datos como ​'asociacion'
+
+3
+Utilizando claves foráneas (asociaciones M-N)
+En este ejercicio vamos a resolver la asociación
+entre películas y actores, de tal forma que un
+actor puede haber participado en varias pelícu-
+las y en una película pueden haber participado
+varios actores de la base de datos (asociación
+M-N)
+Como podrás ver en la ayuda del comando
+CREATE TABLE, las claves foráneas se pueden
+especificar tanto a nivel de definición de co-
+lumna (si afectan a una sola columna) como a
+nivel de definición de relación (si afectan a una
+o varias columnas). En este ejercicio utiliza la
+modalidad que no hayas utilizado en el ejerci-
+cio anterior con el fin de que te familiarices con
+ambas.
+
+CODIGO CREADO CON LA ASOCIACION actuaEn donde estan las claves foraneas
+
+//////////////
+4
+La sentencia CREATE TABLE nos permite tam-
+bién definir restricciones de unicidad, lo que
+nos permite evitar que para un atributo o con-
+junto de atributos determinado se puedan repe-
+tir valores. Es decir, lo utilizamos para definir
+claves candidatas.
+Como podrás ver en la ayuda del comando
+CREATE TABLE, las restricciones de unicidad se
+pueden especificar tanto a nivel de definición
+de columna (si afectan a una sola columna) co-
+mo a nivel de definición de relación (si afectan a
+una o varias columnas). En este ejercicio debe-
+rás utilizar ambas modalidades.
+Para especificar que el valor sea único, añadimos el prefijo ​unique​. El resto es buscar y añadirlos IMDBs.
+
+
+CODIGO CREADO AÑADIENDO EL NUEVO ATRIBUTO UNICO DEL CODIGO DE IMDB
+
+///////////
+5
+La sentencia de creación de relaciones también
+nos permite definir cuándo una determinada
+columna puede almacenar valores nulos o no.
+
+Poner ​not null​ al final de aquellas variables que sea necesario. En algunas ya lo he idoponiendo.
+
+
+
+
+
+//////////
+6
+La sentencia CREATE TABLE nos proporciona un
+elemento adicional para restringir los valores
+que puede tomar un determinado atributo. Se
+trata de la cláusula CHECK, que nos permite in-
+troducir restricciones adicionales que deben
+cumplir los datos que se almacenen en la rela-
+ción correspondiente.
+
+el nombre del check tiene que ser distinto de cada check
+
+////////////
+7
+Aunque el proceso normal de diseño de una
+base de datos supone realizar primero el diseño
+a nivel conceptual (diagrama E-A) y su paso
+posterior a un diseño relacional, en un caso sen-
+cillo como es nuestro ejemplo vamos a hacerlo
+al contrario.
+DIBUJO MEGA
+
+////////////
+8 CONSULTAS DE DIFICULTAD CRECIENTE
+
+---LISTAR TODOS LOS ACTORES
+
+SELECT * FROM Actores;----enseña todas las tuplas de Actores 
+SELECT NombreActor FROM Actores-----enseña todos los nombres de cada actor de la tabla
+
+SELECT atributo1,atributo2 FROM relacion
+
+La consulta SELECT Actores.NombreActor FROM Actores y SELECT NombreActor FROM Actores son esencialmente idénticas en este caso, y ambas devolverían el mismo resultado. Sin embargo, hay una pequeña diferencia en la sintaxis y el uso de los alias o el nombre de la tabla,evitar ambiguedad de tablas.
+
+---Encontrar los nombres de todos los actores de una peli concreta
+inner join​ ​selecciona todas las filas de todas las relaciones, siempre que haya una coincidenciaentre las columnas en ambas relaciones tal y como se le indique.
+
+
+SELECT Actores.NombreActor---solo queremos ver los nombres en la tabla final
+FROM Actores
+JOIN actuaEn ON Actores.ID_actor = actuaEn.ID_Actor----la tabla que sale aqui son los nombres de actores con id en actores que coinciden con los id que hay en actuaEn
+JOIN Peliculas ON actuaEn.ID_Pelicula = Peliculas.ID_Pelicula---la tabla que sale de aqui es el resultado de comparar los actores cuyo id pelicula coincide con el de peliculas
+WHERE Peliculas.Titulo = 'The Fast & The Furious';--------el resultado es la tabla post los dos primeros join donde la pelicula tiene este nombre y como se puso al principio solo los nombres de los actores si pusiera * from se veria todo el resultado de haber hecho combinacion con cada join
+
+
+---Encontrar todos los actores mayores de 50 años
+
+
+
+
+////////////
+9
+///////////
+10
+////////////
+
+
+

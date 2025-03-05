@@ -1,8 +1,0 @@
-A nivel de tabla, la clave primaria se puede definir usando múltiples columnas. Es decir, una clave primaria compuesta por más de una columna se define a nivel de tabla. Esto se utiliza cuando necesitas garantizar la unicidad en una combinación de columnas y no solo en una sola.
-
-Cuando defines una clave primaria a nivel de columna, estás indicando que esa columna será la clave primaria de la tabla y, por lo tanto, no puede contener valores duplicados ni valores NULL.
-
-METO EN UN ARCHIVO programa_sql.sql los datos para crear la BD de peliculas directores titulos
-
-
-
