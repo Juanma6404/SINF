@@ -1,0 +1,118 @@
+mysql –h maquina –u usuario –p bd
+mysql  –u root –p practicas
+--maquina es el nombre de la máquina en que
+se ejecuta el servidor. Si el servidor se ejecu-
+ta en la misma máquina que el cliente, como
+es nuestro caso, esta opción no es necesaria.
+--usuario es el nombre de usuario con el que
+queremos conectarnos a la base de datos. En
+este ejercicio, dado que vamos a actuar co-
+mo DBA, deberemos utilizar el valor root.
+--bd es el nombre de la base de datos, de las
+gestionadas por el servidor, a la que nos
+queremos conectar. Si no vamos a realizar
+operaciones sobre ninguna base de datos
+concreta, como es el caso de este ejercicio,
+este parámetro se puede omitir.
+
+//////////
+
+
+CREATE USER 'juanma'@'%' IDENTIFIED BY 'Pepa986230251+';
+CREATE USER 'juanma'@'localhost' IDENTIFIED BY 'Pepa986230251+';
+
+Para que un usuario pueda acceder desde cualquier máquina al
+SGBD se debe utilizar este comando para crear dos usuarios en el
+SGBD. Así, por ejemplo, para el usuario “mramos” se deben crear
+los usuarios “mramos” y “mramos@localhost”.
+//////////////
+Los usuarios normales pueden realizar opera-
+ciones de DDL y DML sobre las bases de datos
+existentes, pero no crear nuevas bases de datos
+o eliminarlas del sistema. Éstas también se con-
+sideran labores administrativas y, por tanto,
+debemos realizarlas como DBA.
+SQL nos proporciona tres comandos básicos
+para gestionar bases de datos:
+- CREATE DATABASE: para crear bases de datos.
+- ALTER DATABASE: para modificar determina-
+dos atributos de una base de datos existente.
+- DROP DATABASE: para eliminar bases de datos.
+/////////
+
+mysql  –u root –p practicas------con este comando no va preguntar a duque
+
+entonces entro con mysql -u root
+SHOW DATABASES;
+USE database;-----para seleccionarla
+SELECT DATABASE();----para ver la que tengo seleccionada
+////////////
+GRANT ALL PRIVILEGES ON practicas.* TO 'juanma'@'%';----permisos a juanma desde cuaquier host a la base practicas
+GRANT ALL PRIVILEGES ON practicas.* TO 'juanma'@'localhost';----permisos a juanma desde localhost a la base practicas
+
+FLUSH PRIVILEGES;----actualizar permisos y confirmar
+
+/////
+entrar como juanma@localhost----mysql  -u juanma -p
+
+SHOW DATABASES;--MOSTRAR TODAS DEL USER
+SELECT DATABASE();--MOSTRAR ACTUAL
+USE practicas;--SELECCIONAR ACTUAL PARA TRABAJAR
+SELECT DATABASE();
+
+//
+CREATE TABLE Profesores (
+id INT AUTO_INCREMENT PRIMARY KEY,
+nombre VARCHAR(50),
+especialidad VARCHAR(50)
+);
+
+HEMOS CREADO LA TABLA DE PROFESORES
+SI PONEMOS--DESCRIBE Profesores;--VEMOS LA TABLA Y SI PONEMOS
+--SHOW TABLES;--VEMOS LAS TABLAS QUE HEMOS CREADO
+///////
+COMO INSERTAMOS VALORES EN LA TABLA DE PROFESORES
+
+INSERT INTO Profesores (nombre, especialidad) VALUES ('Duque', 'Telematica'), ('Masagguer', 'Telematica');
+Para evitar las repetidas ejecutaremos los siguientes comandos:
+-ALTER TABLE Profesores ADD CONSTRAINT unique_profesor UNIQUE (nombre, especialidad);
+- ALTER TABLE Alumnos ADD CONSTRAINT unique_alumno UNIQUE (nombre, edad);
+///////
+COMO VEMOS LOS DATOS
+
+SELECT *FROM Profesores;
+
+/////
+ELIMINAR TABLAS
+
+DROP TABLE Profesores;
+
+//////
+
+PRIMERA RELACION PROFESORES CON ALUMNOS
+
+Primeramente creo la tabla de Profesores:
+CREATE TABLE Profesores (
+codigo INT AUTO_INCREMENT PRIMARY KEY,
+nombre VARCHAR(50),
+especialidad VARCHAR(50)
+);
+Ahora, creo la tabla de Alumnos con clave foránea a Profesores:
+CREATE TABLE Alumnos (
+id INT AUTO_INCREMENT PRIMARY KEY,
+nombre VARCHAR(50),
+edad INT,
+codigo_profesor INT,
+FOREIGN KEY (codigo_profesor) REFERENCES Profesores(codigo));
+
+
+//////////////
+CREO NUEVA RELACION
+
+CREATE TABLE RelacionAP(codigo_alumno INT,codigo_profesor INT,fecha DATE,PRIMARY KEY (codigo_alumno, codigo_profesor),FOREIGN KEY (codigo_alumno) REFERENCES Alumnos(id) ON DELETE CASCADE,FOREIGN KEY (codigo_profesor) REFERENCES Profesores(codigo));
+
+SHOW TABLES;
+
+///////////
+ARCHIVO CREADO file_sql.sql CON CONTENIDO 'USE practicas'
+PARA EJECUTARLO HAGO--SOURCE path(copiando en el explorado de archivos)Y PONGO \file_sql.sql  Y LO EJECUTA
