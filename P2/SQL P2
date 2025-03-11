@@ -117,12 +117,54 @@ WHERE Peliculas.Titulo = 'The Fast & The Furious';--------el resultado es la tab
 
 
 ---Encontrar todos los actores mayores de 50 años
+SELECT NombreActor FROM Actores WHERE Edad > 50;
 
+---Para todos las películas mostrar su identifica-
+dor, título, imdb y nombre del director
+
+SELECT Peliculas.ID_Pelicula, Peliculas.Titulo, Peliculas.IMBD, Directores.NombreDirector 
+FROM Peliculas 
+INNER JOIN Directores ON Directores.ID_Director = Peliculas.ID_Director;
+
+---Mostrar cuántas películas ha dirigido cada
+director.
+
+SELECT Directores.NombreDirector, COUNT(*)
+FROM Peliculas
+INNER JOIN Directores ON Peliculas.ID_Director = Directores.ID_Director
+GROUP BY Directores.NombreDirector;
+
+---Mostrar todos los actores que no han actuado
+en ninguna película.
+
+SELECT Actores.NombreActor 
+FROM Actores 
+WHERE Actores.ID_Actor NOT IN (SELECT ID_Actor FROM ActuaEn);----necesito inner query para comparar dos tablas
+
+---Para un determinado actor, muestra todos los
+directores que le han dirigido.
+
+SELECT Actores.NombreActor, Directores.NombreDirector  
+FROM Actores 
+INNER JOIN actuaEn ON actuaEn.ID_Actor = Actores.ID_Actor 
+INNER JOIN Peliculas ON Peliculas.ID_Pelicula = actuaEn.ID_Pelicula 
+INNER JOIN Directores ON Directores.ID_Director = Peliculas.ID_Director
+WHERE Actores.ID_Actor = 5;
 
 
 
 ////////////
 9
+CREATE DATABASE UnivPeque;---tambien UnivGrande
+USE UnivPeque;--actualizo
+GRANT ALL PRIVILEGES ON practicas.* TO 'juanma'@'%';
+GRANT ALL PRIVILEGES ON practicas.* TO 'juanma'@'localhost';
+SOURCE /home/juanma/GITHUB/SINF/P2/DDL.sql;
+SOURCE /home/juanma/GITHUB/SINF/P2/UnivInsertPeque.sql
+
+
+
+
 ///////////
 10
 ////////////
